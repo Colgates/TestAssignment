@@ -5,13 +5,14 @@
 //  Created by Evgenii Kolgin on 29.04.2022.
 //
 
+import SDWebImage
 import UIKit
 
 class PhotoCollectionViewCell: UICollectionViewCell {
  
-    static let identifier = "PhotoCollectionViewCell"
+    static let identifier = String(describing: PhotoCollectionViewCell.self)
     
-    public lazy var imageView: UIImageView = {
+    private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 8
         imageView.clipsToBounds = true
@@ -22,15 +23,15 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        imageViewConstraints()
+        addConstraints()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
-    private func imageViewConstraints() {
-        addSubview(imageView)
+    private func addConstraints() {
+        contentView.addSubview(imageView)
         
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -38,6 +39,28 @@ class PhotoCollectionViewCell: UICollectionViewCell {
             imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
         ])
+    }
+    
+    func configure(with viewModel: PhotoCellViewModel) {
+        imageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
+        imageView.sd_setImage(with: URL(string: viewModel.imageUrl))
+    }
+}
+
+struct PhotoCellViewModel: Hashable {
+    
+    private let photo: Photo
+    
+    init(photo: Photo) {
+        self.photo = photo
+    }
+    
+    var id: String {
+        photo.id
+    }
+    
+    var imageUrl: String {
+        photo.urls.small
     }
 }
 

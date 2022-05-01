@@ -5,45 +5,52 @@
 //  Created by Evgenii Kolgin on 29.04.2022.
 //
 
-import Foundation
-
 import Combine
 import Foundation
 
 protocol NetworkServiceProtocol {
+    func fetchPhotos() -> AnyPublisher<[Photo], Error>
+    func searchPhotos(for query: String) -> AnyPublisher<[Photo], Error>
+    func getPhotoDetails(with id: String) -> AnyPublisher<Photo, Error>
 }
 
 class NetworkService: NetworkServiceProtocol {
     
-    func fetchCategoriesList() throws -> AnyPublisher<[NewsCategory], Error> {
-        guard let request = createRequest(endpoint: .categoriesList, method: .get) else { throw NetworkError.badRequest }
+    private var decoder: JSONDecoder = {
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        return decoder
+    }()
+    
+    func fetchPhotos() -> AnyPublisher<[Photo], Error> {
+        guard let request = createRequest(endpoint: .randomPhotos, method: .get, parameters: ["count" : 10, "client_id" : APICredentials.API_KEY]) else { return Fail(error: NetworkError.badRequest).eraseToAnyPublisher() }
         return URLSession.shared.dataTaskPublisher(for: request)
             .map(\.data)
-            .decode(type: CategoriesList.self, decoder: JSONDecoder())
-            .map { $0.list }
+            .decode(type: [Photo].self, decoder: decoder)
             .eraseToAnyPublisher()
     }
     
-    func fetchNewsList(with id: Int, page: Int) throws -> AnyPublisher<[News], Error> {
-        guard let request = createRequest(endpoint: .newsList(id: id), method: .get, parameters: ["page" : page]) else { throw NetworkError.badRequest }
+    func searchPhotos(for query: String) -> AnyPublisher<[Photo], Error> {
+        guard let request = createRequest(endpoint: .search, method: .get, parameters: ["query" : query, "client_id" : APICredentials.API_KEY])
+        else { return Fail(error: NetworkError.badRequest).eraseToAnyPublisher() }
         return URLSession.shared.dataTaskPublisher(for: request)
             .map(\.data)
-            .decode(type: NewsList.self, decoder: JSONDecoder())
-            .map { $0.list }
+            .decode(type: SearchResponse.self, decoder: decoder)
+            .map { $0.results }
             .eraseToAnyPublisher()
     }
     
-    func fetchDetailsForNews(with id: Int) throws -> AnyPublisher<News, Error> {
-        guard let request = createRequest(endpoint: .newsDetails, method: .get, parameters: ["id" : id]) else { throw NetworkError.badRequest }
+    func getPhotoDetails(with id: String) -> AnyPublisher<Photo, Error> {
+        guard let request = createRequest(endpoint: .photo(id: id), method: .get, parameters: ["client_id" : APICredentials.API_KEY])
+        else { return Fail(error: NetworkError.badRequest).eraseToAnyPublisher() }
         return URLSession.shared.dataTaskPublisher(for: request)
             .map(\.data)
-            .decode(type: NewsDetails.self, decoder: JSONDecoder())
-            .map { $0.news }
+            .decode(type: Photo.self, decoder: decoder)
             .eraseToAnyPublisher()
     }
     
     private func createRequest(endpoint: Endpoint, method: Method, parameters: [String: Any]? = nil) -> URLRequest? {
-        
+
         let urlString = Endpoint.baseURL + endpoint.description
         
         guard let url = URL(string: urlString) else { return nil }
@@ -65,3 +72,7 @@ class NetworkService: NetworkServiceProtocol {
         return urlRequest
     }
 }
+
+
+
+

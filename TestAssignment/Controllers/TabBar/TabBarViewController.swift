@@ -16,19 +16,17 @@ class TabBarViewController: UITabBarController {
     }
     
     private func setupTabs() {
-        let photoCollectionVC = UINavigationController(rootViewController: PhotoCollectionViewController())
+        let networkService: NetworkServiceProtocol = NetworkService()
+        
+        let photoCollectionViewModel = PhotoCollectionViewModel(networkService: networkService)
+        let photoCollectionVC = UINavigationController(rootViewController: PhotoCollectionViewController(viewModel: photoCollectionViewModel))
         photoCollectionVC.tabBarItem = UITabBarItem(title: "Photos", image: Constants.Images.house, tag: 1)
-        let favoritesVC = UINavigationController(rootViewController: FavoritesViewController())
+        
+        let favoritesListViewModel = FavoritesListViewModel(networkService: networkService)
+        let favoritesVC = UINavigationController(rootViewController: FavoritesViewController(viewModel: favoritesListViewModel))
         favoritesVC.tabBarItem = UITabBarItem(title: "Favorites", image: Constants.Images.favorites, tag: 2)
         
         viewControllers = [photoCollectionVC, favoritesVC]
-    }
-}
-
-struct Constants {
-    struct Images {
-        static let house = UIImage(systemName: "house")
-        static let favorites = UIImage(systemName: "star")
     }
 }
 
