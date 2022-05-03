@@ -17,7 +17,7 @@ struct Photo: Codable, Hashable {
     let createdAt: String
     let urls: Urls
     let user: User
-    let location: Location
+    let location: Location?
     let downloads: Int?
 }
 

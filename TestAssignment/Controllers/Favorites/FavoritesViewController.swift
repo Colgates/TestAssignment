@@ -38,7 +38,7 @@ class FavoritesViewController: UIViewController {
         super.viewDidLoad()
         
         configureDataSource()
-        loadFavorites()
+//        loadFavorites()
     }
     
     override func viewWillAppear(_ animated: Bool) {

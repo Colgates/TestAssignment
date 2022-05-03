@@ -15,10 +15,10 @@ class PhotoCollectionViewModel {
     var dataSource: UICollectionViewDiffableDataSource<Int, PhotoCellViewModel>?
     private var subscriptions: Set<AnyCancellable> = []
     
-    private let networkService: NetworkServiceProtocol
+    private let networkManager: NetworkService
     
-    required init(networkService: NetworkServiceProtocol) {
-        self.networkService = networkService
+    required init(networkManager: NetworkService) {
+        self.networkManager = networkManager
         setupSubscribers()
     }
     
@@ -34,7 +34,7 @@ class PhotoCollectionViewModel {
     }
     
     func fetchPhotos() {
-        networkService.fetchPhotos()
+        networkManager.fetchPhotos()
             .receive(on: RunLoop.main)
             .sink { completion in
 //                print(completion)
@@ -46,7 +46,7 @@ class PhotoCollectionViewModel {
     }
     
     func searchPhotos(for query: String) {
-        networkService.searchPhotos(for: query)
+        networkManager.searchPhotos(for: query)
             .sink { completion in
 //                print(completion)
             } receiveValue: { [weak self] photos in
@@ -58,7 +58,7 @@ class PhotoCollectionViewModel {
     
     func createViewModelForDetailsVC(for indexPath: IndexPath) -> DetailsViewModel? {
         guard let selectedItem = dataSource?.itemIdentifier(for: indexPath) else  { return nil }
-        return DetailsViewModel(id: selectedItem.id, networkService: networkService)
+        return DetailsViewModel(id: selectedItem.id, networkManager: networkManager)
     }
     
     // MARK: - Private

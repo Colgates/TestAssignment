@@ -43,7 +43,6 @@ class PhotoCollectionViewController: UIViewController {
         searchController.searchResultsUpdater = self
         searchController.automaticallyShowsCancelButton = true
         searchController.searchBar.autocapitalizationType = .none
-        searchController.obscuresBackgroundDuringPresentation = true
     }
     
     private func configureCollectionView() {

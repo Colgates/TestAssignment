@@ -23,7 +23,6 @@
 		8D3A0A4D281C211D0079CB07 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3A0A4C281C211D0079CB07 /* Photo.swift */; };
 		8D3A0A4F281C21330079CB07 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3A0A4E281C21330079CB07 /* PhotoCollectionViewCell.swift */; };
 		8D3A0A51281C23600079CB07 /* APICredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3A0A50281C23600079CB07 /* APICredentials.swift */; };
-		8D3A0A57281C37DD0079CB07 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 8D3A0A56281C37DD0079CB07 /* SDWebImage */; };
 		8D5081FB281D13A7000B8CA5 /* PhotoDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5081FA281D13A7000B8CA5 /* PhotoDetailsViewModel.swift */; };
 		8D668088281D1A4E008FBD82 /* UIView + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D668087281D1A4D008FBD82 /* UIView + Extensions.swift */; };
 		8D66808B281D1AAF008FBD82 /* String + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D66808A281D1AAF008FBD82 /* String + Extensions.swift */; };
@@ -38,6 +37,7 @@
 		8D6FC5A2281D4F7F003D7252 /* FavoritesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6FC5A1281D4F7F003D7252 /* FavoritesTableViewCell.swift */; };
 		8D6FC5A5281D586C003D7252 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6FC5A4281D586C003D7252 /* Constants.swift */; };
 		8D6FC5A7281D588B003D7252 /* FavoritesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6FC5A6281D588B003D7252 /* FavoritesListViewModel.swift */; };
+		8DE0F2982820C5EA00741FAD /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 8DE0F2972820C5EA00741FAD /* SDWebImage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -80,7 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D3A0A57281C37DD0079CB07 /* SDWebImage in Frameworks */,
+				8DE0F2982820C5EA00741FAD /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,7 +302,7 @@
 			);
 			name = TestAssignment;
 			packageProductDependencies = (
-				8D3A0A56281C37DD0079CB07 /* SDWebImage */,
+				8DE0F2972820C5EA00741FAD /* SDWebImage */,
 			);
 			productName = TestAssignment;
 			productReference = 8D179116281C1A94000FA10D /* TestAssignment.app */;
@@ -333,7 +333,7 @@
 			);
 			mainGroup = 8D17910D281C1A94000FA10D;
 			packageReferences = (
-				8D3A0A55281C37DD0079CB07 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				8DE0F2962820C5EA00741FAD /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = 8D179117281C1A94000FA10D /* Products */;
 			projectDirPath = "";
@@ -525,9 +525,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = M35BH6W7MY;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "TestAssignment/Supporting Files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -541,6 +541,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.evgeniikolgin.TestAssignment;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -552,9 +553,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = M35BH6W7MY;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "TestAssignment/Supporting Files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -568,6 +569,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.evgeniikolgin.TestAssignment;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -598,20 +600,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		8D3A0A55281C37DD0079CB07 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+		8DE0F2962820C5EA00741FAD /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
 			requirement = {
-				branch = master;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		8D3A0A56281C37DD0079CB07 /* SDWebImage */ = {
+		8DE0F2972820C5EA00741FAD /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 8D3A0A55281C37DD0079CB07 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			package = 8DE0F2962820C5EA00741FAD /* XCRemoteSwiftPackageReference "SDWebImage" */;
 			productName = SDWebImage;
 		};
 /* End XCSwiftPackageProductDependency section */

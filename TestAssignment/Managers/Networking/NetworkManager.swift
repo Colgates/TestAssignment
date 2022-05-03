@@ -8,13 +8,13 @@
 import Combine
 import Foundation
 
-protocol NetworkServiceProtocol {
+protocol NetworkService {
     func fetchPhotos() -> AnyPublisher<[Photo], Error>
     func searchPhotos(for query: String) -> AnyPublisher<[Photo], Error>
     func getPhotoDetails(with id: String) -> AnyPublisher<Photo, Error>
 }
 
-class NetworkService: NetworkServiceProtocol {
+class NetworkManager: NetworkService {
     
     private var decoder: JSONDecoder = {
         let decoder = JSONDecoder()
@@ -33,6 +33,7 @@ class NetworkService: NetworkServiceProtocol {
     func searchPhotos(for query: String) -> AnyPublisher<[Photo], Error> {
         guard let request = createRequest(endpoint: .search, method: .get, parameters: ["query" : query, "client_id" : APICredentials.API_KEY])
         else { return Fail(error: NetworkError.badRequest).eraseToAnyPublisher() }
+        
         return URLSession.shared.dataTaskPublisher(for: request)
             .map(\.data)
             .decode(type: SearchResponse.self, decoder: decoder)

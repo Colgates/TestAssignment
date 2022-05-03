@@ -11,7 +11,7 @@ import Foundation
 class DetailsViewModel {
     
     private var id: String
-    private let networkService: NetworkServiceProtocol
+    private let networkManager: NetworkService
     private var subscriptions: Set<AnyCancellable> = []
     
     @Published var isFavorite: Bool = false
@@ -21,13 +21,13 @@ class DetailsViewModel {
     @Published var location: String?
     @Published var numberOfDownloads: String?
     
-    required init(id: String, networkService: NetworkServiceProtocol) {
-        self.networkService = networkService
+    required init(id: String, networkManager: NetworkService) {
+        self.networkManager = networkManager
         self.id = id
     }
     
     func getPhotoDetails() {
-        networkService.getPhotoDetails(with: id)
+        networkManager.getPhotoDetails(with: id)
             .receive(on: RunLoop.main)
             .sink { completion in
                 //                print(completion)
@@ -57,7 +57,7 @@ class DetailsViewModel {
         imageUrl = photo.urls.regular
         authorName = "Author: \(photo.user.name ?? "-")"
         createdAt = "Created: \(photo.createdAt.isoDateConverter)"
-        location = "Location: \(photo.location.title ?? "-")"
+        location = "Location: \(photo.location?.title ?? "-")"
         numberOfDownloads = "Downloads: \(photo.downloads ?? 0)"
     }
     

@@ -8,7 +8,7 @@
 import UIKit
 
 protocol FavoritesListViewModelProtocol {
-    init(networkService: NetworkServiceProtocol)
+    init(networkManager: NetworkService)
     func loadFavorites()
     func createViewModelForDetailsVC(for indexPath: IndexPath) -> DetailsViewModel?
 }
@@ -17,10 +17,10 @@ class FavoritesListViewModel: FavoritesListViewModelProtocol {
     
     var dataSource: FavoritesTableViewDataSource?
     
-    private let networkService: NetworkServiceProtocol
+    private let networkManager: NetworkService
     
-    required init(networkService: NetworkServiceProtocol) {
-        self.networkService = networkService
+    required init(networkManager: NetworkService) {
+        self.networkManager = networkManager
     }
     
     func loadFavorites() {
@@ -31,7 +31,7 @@ class FavoritesListViewModel: FavoritesListViewModelProtocol {
     
     func createViewModelForDetailsVC(for indexPath: IndexPath) -> DetailsViewModel? {
         guard let selectedItem = dataSource?.itemIdentifier(for: indexPath), let id = selectedItem.id else  { return nil }
-        return DetailsViewModel(id: id, networkService: networkService)
+        return DetailsViewModel(id: id, networkManager: networkManager)
     }
     
     private func updateSnapshot(with favorites: [FavoritesTableViewCellViewModel]) {

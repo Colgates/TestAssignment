@@ -55,7 +55,7 @@ class PersistenceManager {
         favoritePhoto.id = id
         favoritePhoto.imageUrl = imageUrl
         favoritePhoto.authorName = authorName
-        PersistenceManager.shared.saveContext()
+        saveContext()
     }
     
     func getObjectWith(id: String) -> Favorites? {
