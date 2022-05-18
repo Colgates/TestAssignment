@@ -15,4 +15,8 @@
 Используйте как минимум одну стороннюю библиотеку Cocoa Pods (кроме Unsplash Photo Picker for iOS и прочие подобные для работы с Unsplash) 5. 
 Должен быть как минимум один Алерт.
 
+# Реализация:
+Swift, MVVM, Combine, CoreData
+Dependencies: SDWebImage
+
 ![gif](/TestApp.gif)
